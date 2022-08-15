@@ -1,35 +1,38 @@
 using System;
 
-public class Timer
+namespace Sapper.Model
 {
-    private float _elapsedTime;
-
-    public Timer()
+    public class Timer
     {
-        _elapsedTime = 0;
-    }
+        private float _elapsedTime;
 
-    public int Minutes { get; private set; }
-    public int Seconds { get; private set; }
+        public Timer()
+        {
+            _elapsedTime = 0;
+        }
 
-    public void AddTime(float timeToAdd)
-    {
-        if (timeToAdd < 0)
-            throw new ArgumentOutOfRangeException(nameof(timeToAdd));
+        public int Minutes { get; private set; }
+        public int Seconds { get; private set; }
 
-        _elapsedTime += timeToAdd;
-        SetFormatedTime();
-    }
+        public void AddTime(float timeToAdd)
+        {
+            if (timeToAdd < 0)
+                throw new ArgumentOutOfRangeException(nameof(timeToAdd));
 
-    public void Reset()
-    {
-        _elapsedTime = 0;
-        SetFormatedTime();
-    }
+            _elapsedTime += timeToAdd;
+            SetFormatedTime();
+        }
 
-    private void SetFormatedTime()
-    {
-        Minutes = (int)Math.Floor(_elapsedTime / 60);
-        Seconds = (int)Math.Floor(_elapsedTime % 60);
+        public void Reset()
+        {
+            _elapsedTime = 0;
+            SetFormatedTime();
+        }
+
+        private void SetFormatedTime()
+        {
+            Minutes = (int)Math.Floor(_elapsedTime / 60);
+            Seconds = (int)Math.Floor(_elapsedTime % 60);
+        }
     }
 }

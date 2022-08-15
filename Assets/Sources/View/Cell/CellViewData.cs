@@ -2,28 +2,31 @@
 using UnityEngine;
 using System;
 
-public class CellViewData : MonoBehaviour
+namespace Sapper.View
 {
-    [SerializeField] private SpriteRenderer _bombSprite;
-    [SerializeField] private Text _number;
-
-    public void SetNumber(int value)
+    public class CellViewData : MonoBehaviour
     {
-        _bombSprite.gameObject.SetActive(false);
-        _number.gameObject.SetActive(true);
+        [SerializeField] private SpriteRenderer _bombSprite;
+        [SerializeField] private Text _number;
 
-        if (value < 0 || value > 8)
-            throw new ArgumentOutOfRangeException(nameof(value));
+        public void SetNumber(int value)
+        {
+            _bombSprite.gameObject.SetActive(false);
+            _number.gameObject.SetActive(true);
 
-        _number.text = value.ToString();
-        
-        if (value == 0)
+            if (value < 0 || value > 8)
+                throw new ArgumentOutOfRangeException(nameof(value));
+
+            _number.text = value.ToString();
+
+            if (value == 0)
+                _number.gameObject.SetActive(false);
+        }
+
+        public void SetBomb()
+        {
+            _bombSprite.gameObject.SetActive(true);
             _number.gameObject.SetActive(false);
-    }
-
-    public void SetBomb()
-    {
-        _bombSprite.gameObject.SetActive(true);
-        _number.gameObject.SetActive(false);
+        }
     }
 }

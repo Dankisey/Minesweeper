@@ -1,4 +1,6 @@
+using Sapper.Controller;
 using Sapper.Model;
+using Sapper.View;
 using UnityEngine;
 
 public class MapView : MonoBehaviour

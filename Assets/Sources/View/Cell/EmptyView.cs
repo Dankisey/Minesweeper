@@ -1,10 +1,13 @@
 using Sapper.Model;
 
-public class EmptyView : CellView
+namespace Sapper.View
 {
-    public override void Init(Cell cell)
+    public class EmptyView : CellView
     {
-        base.Init(cell);
-        Data.SetNumber(0);
+        public override void Init(Cell cell)
+        {
+            base.Init(cell);
+            Data.SetNumber(0);
+        }
     }
 }

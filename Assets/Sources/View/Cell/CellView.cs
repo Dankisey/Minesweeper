@@ -1,45 +1,48 @@
 using UnityEngine;
 using Sapper.Model;
 
-[RequireComponent(typeof(CellViewData))]
-[RequireComponent(typeof(Animator))]
-public abstract class CellView : MonoBehaviour
+namespace Sapper.View
 {
-    private const string Flagged = nameof(Flagged);
-    private const string Reveal = nameof(Reveal);
-    private Animator _animator;
-
-    protected CellViewData Data;
-
-    public virtual void Init(Cell cell)
+    [RequireComponent(typeof(CellViewData))]
+    [RequireComponent(typeof(Animator))]
+    public abstract class CellView : MonoBehaviour
     {
-        _animator = GetComponent<Animator>();
-        Data = GetComponent<CellViewData>();
-        CellModel = cell;
+        private const string Flagged = nameof(Flagged);
+        private const string Reveal = nameof(Reveal);
+        private Animator _animator;
 
-        CellModel.Opened += OnOpened;
-        CellModel.FlagStatusChanged += OnFlagStatusChanged;
-    }
+        protected CellViewData Data;
 
-    public Cell CellModel { get; private set; }
+        public virtual void Init(Cell cell)
+        {
+            _animator = GetComponent<Animator>();
+            Data = GetComponent<CellViewData>();
+            CellModel = cell;
 
-    protected void ForceOpen()
-    {
-        _animator.SetTrigger(Reveal);
-    }
+            CellModel.Opened += OnOpened;
+            CellModel.FlagStatusChanged += OnFlagStatusChanged;
+        }
 
-    protected void ForceUnflag()
-    {
-        _animator.SetBool(Flagged, false);
-    }
+        public Cell CellModel { get; private set; }
 
-    private void OnOpened(Cell cell)
-    {
-        _animator.SetTrigger(Reveal);
-    }
+        protected void ForceOpen()
+        {
+            _animator.SetTrigger(Reveal);
+        }
 
-    public void OnFlagStatusChanged(bool isFlagged)
-    {
-        _animator.SetBool(Flagged, isFlagged);
+        protected void ForceUnflag()
+        {
+            _animator.SetBool(Flagged, false);
+        }
+
+        private void OnOpened(Cell cell)
+        {
+            _animator.SetTrigger(Reveal);
+        }
+
+        public void OnFlagStatusChanged(bool isFlagged)
+        {
+            _animator.SetBool(Flagged, isFlagged);
+        }
     }
 }

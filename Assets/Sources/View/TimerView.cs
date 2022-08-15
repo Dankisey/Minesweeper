@@ -1,29 +1,26 @@
+using Sapper.Model;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class TimerView : MonoBehaviour
+namespace Sapper.View
 {
-    [SerializeField] private Text _timer;
-
-    private readonly Timer _time = new();
-
-    private void Start()
+    public class TimerView : MonoBehaviour
     {
-        _time.Reset();
-        UpdateTimerText();
-    }
+        [SerializeField] private Text _timer;
 
-    private void Update()
-    {
-        _time.AddTime(Time.deltaTime);
-        UpdateTimerText();
-    }
+        private Timer _time;
 
-    private void UpdateTimerText()
-    {
-        if (_time.Seconds < 10)
-            _timer.text = $"{_time.Minutes}:0{_time.Seconds}";
-        else
-            _timer.text = $"{_time.Minutes}:{_time.Seconds}";
+        public void Init(Timer timer)
+        {
+            _time = timer;
+        }
+
+        public void UpdateTimerText()
+        {
+            if (_time.Seconds < 10)
+                _timer.text = $"{_time.Minutes}:0{_time.Seconds}";
+            else
+                _timer.text = $"{_time.Minutes}:{_time.Seconds}";
+        }
     }
 }

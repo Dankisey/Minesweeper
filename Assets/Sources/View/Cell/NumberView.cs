@@ -1,10 +1,13 @@
 using Sapper.Model;
 
-public class NumberView : CellView
+namespace Sapper.View
 {
-    public override void Init(Cell cell)
+    public class NumberView : CellView
     {
-        base.Init(cell);
-        Data.SetNumber((CellModel as Number).Value);
+        public override void Init(Cell cell)
+        {
+            base.Init(cell);
+            Data.SetNumber((CellModel as Number).Value);
+        }
     }
 }
