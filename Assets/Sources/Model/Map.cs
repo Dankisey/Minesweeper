@@ -5,23 +5,20 @@ namespace Sapper.Model
 {
     public class Map
     {
-        private readonly Dictionary<Vector2Int, Bomb> _bombs;
-        private readonly List<ClickHandler> _inputHandlers;
-        private readonly List<Vector2Int> _bombsPositions;
+        private readonly List<ClickHandler> _inputHandlers;      
         private readonly HashSet<Cell> _openedEmptyCells;
-        private readonly Cell[,] _map;
-        private readonly Random _random;
+        private readonly MapGenerator _mapGenerator;
+
+        private BombsData _bombsData;
+        private Cell[,] _map;    
 
         public Map()
         {
             Height = Config.NormalDifficulty.MapHeight;
             Width = Config.NormalDifficulty.MapWidth;
-            _map = new Cell[Height, Width];
+            _mapGenerator = new(this);
             _openedEmptyCells = new();
-            _bombsPositions = new();
-            _inputHandlers = new();
-            _bombs = new();
-            _random = new();          
+            _inputHandlers = new();         
         }
 
         public event Action<bool> FlagStatusChanged;
@@ -31,20 +28,16 @@ namespace Sapper.Model
         public int BombsAmount { get; private set; }
         public int Height { get; private set; }
         public int Width { get; private set; }
-
+    
         public Map Generate()
         {
-            for (int i = 0; i < Height; i++)
-            {
-                for (int j = 0; j < Width; j++)
-                {
-                    _map[i, j] = new Empty(new Vector2Int(j, i));
-                }               
-            }
+            _map = _mapGenerator.Generate();
+            _bombsData = _mapGenerator.GetBombsData();
+            BombsAmount = _mapGenerator.CurrentBombsAmount;
 
-            SetCurrentBombsAmount();
-            SetBombs();
-
+            foreach (var position in _bombsData.BombsPositions)         
+                _bombsData.Bombs[position].Exploded += OnExplode;
+            
             return this;
         }
 
@@ -119,74 +112,19 @@ namespace Sapper.Model
                 }
             }
         }
-
-        private void SetBombs()
-        {
-            for (int i = 0; i < BombsAmount; i++)
-            {
-                Vector2Int bombPlace = GetUniquePlace();
-
-                Bomb bomb = new(bombPlace);
-                _map[bombPlace.Y, bombPlace.X] = bomb;
-                bomb.Exploded += OnExplode;
-
-                _bombsPositions.Add(bombPlace);
-                _bombs.Add(bombPlace, bomb);
-
-                NotifyNearCells(bombPlace);
-            }
-        }
-
-        private void NotifyNearCells(Vector2Int bombPlace)
-        {
-            for (int i = bombPlace.Y - 1; i <= bombPlace.Y + 1; i++)
-            {
-                for (int j = bombPlace.X - 1; j <= bombPlace.X + 1; j++)
-                {
-                    if (i < 0 || j < 0 || i >= Height || j >= Width)
-                        continue;
-
-                    _map[i,j] = _map[i, j].NotifyAboutNearBomb();
-                }
-            }
-        }
-
+      
         private void OnExplode(Bomb bomb)
         {
             bomb.Exploded -= OnExplode;
 
-            foreach (var position in _bombsPositions)
+            foreach (var position in _bombsData.BombsPositions)
             {
-                _bombs[position].Exploded -= OnExplode;
-                _bombs[position].ForceExplosion();
+                _bombsData.Bombs[position].Exploded -= OnExplode;
+                _bombsData.Bombs[position].ForceExplosion();
             }
 
             RemoveInputHandlers();
-        }
-
-        private Vector2Int GetUniquePlace()
-        {
-            Vector2Int newPlace;
-            int x;
-            int y;
-
-            do
-            {
-                x = _random.Next(Width);
-                y = _random.Next(Height);
-
-                newPlace = new Vector2Int(x, y);
-
-            } while (_bombsPositions.Contains(newPlace));
-
-            return newPlace;
-        }
-
-        private void SetCurrentBombsAmount()
-        {
-            float bombsAmount = (float)Config.NormalDifficulty.MapHeight * (float)Config.NormalDifficulty.MapWidth / 100 * Config.NormalDifficulty.BombsPercentage;
-            BombsAmount = (int)Math.Round(bombsAmount);
-        }  
+        }            
     }
 
     public struct Vector2Int
