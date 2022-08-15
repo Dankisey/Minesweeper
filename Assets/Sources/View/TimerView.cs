@@ -6,21 +6,21 @@ namespace Sapper.View
 {
     public class TimerView : MonoBehaviour
     {
-        [SerializeField] private Text _timer;
+        [SerializeField] private Text _time;
 
-        private Timer _time;
+        private Timer _timer;
 
         public void Init(Timer timer)
         {
-            _time = timer;
+            _timer = timer;
         }
 
         public void UpdateTimerText()
         {
-            if (_time.Seconds < 10)
-                _timer.text = $"{_time.Minutes}:0{_time.Seconds}";
+            if (_timer.Time.Seconds < 10)
+                _time.text = $"{_timer.Time.Minutes}:0{_timer.Time.Seconds}";
             else
-                _timer.text = $"{_time.Minutes}:{_time.Seconds}";
+                _time.text = $"{_timer.Time.Minutes}:{_timer.Time.Seconds}";
         }
     }
 }

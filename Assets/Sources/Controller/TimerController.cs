@@ -4,17 +4,15 @@ using UnityEngine;
 
 namespace Sapper.Controller
 {
-    [RequireComponent(typeof(TimerView))]
     public class TimerController : MonoBehaviour
     {
-        private readonly Timer _timer = new();
-
         private TimerView _timerView;
+        private Timer _timer;
 
-        private void Awake()
+        public void Init(TimerView timerView, Timer timer)
         {
-            _timerView = GetComponent<TimerView>();
-            _timerView.Init(_timer);
+            _timerView = timerView;
+            _timer = timer;
         }
 
         private void Start()
@@ -25,7 +23,7 @@ namespace Sapper.Controller
 
         private void Update()
         {
-            _timer.AddTime(Time.deltaTime);
+            _timer.AddTime(UnityEngine.Time.deltaTime);
             _timerView.UpdateTimerText();
         }
     }

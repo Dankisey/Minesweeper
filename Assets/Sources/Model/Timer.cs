@@ -5,14 +5,17 @@ namespace Sapper.Model
     public class Timer
     {
         private float _elapsedTime;
+        private int _minutes;
+        private int _seconds;
 
         public Timer()
         {
             _elapsedTime = 0;
+            _minutes = 0;
+            _seconds = 0;
         }
 
-        public int Minutes { get; private set; }
-        public int Seconds { get; private set; }
+        public Time Time => new(_minutes, _seconds);
 
         public void AddTime(float timeToAdd)
         {
@@ -23,6 +26,11 @@ namespace Sapper.Model
             SetFormatedTime();
         }
 
+        public Time Stop()
+        {
+            return Time;
+        }
+
         public void Reset()
         {
             _elapsedTime = 0;
@@ -31,8 +39,20 @@ namespace Sapper.Model
 
         private void SetFormatedTime()
         {
-            Minutes = (int)Math.Floor(_elapsedTime / 60);
-            Seconds = (int)Math.Floor(_elapsedTime % 60);
+            _minutes = (int)Math.Floor(_elapsedTime / 60);
+            _seconds = (int)Math.Floor(_elapsedTime % 60);
+        }
+    }
+
+    public struct Time
+    {
+        public readonly int Minutes;
+        public readonly int Seconds;
+
+        public Time(int minutes, int seconds)
+        {
+            Minutes = minutes;
+            Seconds = seconds;
         }
     }
 }

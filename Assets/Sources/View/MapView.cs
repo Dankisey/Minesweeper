@@ -7,29 +7,31 @@ namespace Sapper.View
     public class MapView : MonoBehaviour
     {
         [SerializeField] private GameObject _cellTemplate;
-        [SerializeField] private ScoreView _scoreView;
 
-        private Map _mapModel;
+        private Map _map;
 
         private void Start()
         {
             StartGame();
         }
 
-        public void StartGame()
+        public void Init(Map map)
         {
-            _mapModel = new Map().Generate();
-            _scoreView.Init(_mapModel);
+            _map = map;
+        }
+
+        public void StartGame()
+        {       
             CreateCellsView();
         }
 
         private void CreateCellsView()
         {
-            for (int i = 0; i < _mapModel.Height; i++)
+            for (int i = 0; i < _map.Height; i++)
             {
-                for (int j = 0; j < _mapModel.Width; j++)
+                for (int j = 0; j < _map.Width; j++)
                 {
-                    Cell cell = _mapModel.GetCellByIndex(i, j);
+                    Cell cell = _map.GetCellByIndex(i, j);
                     GameObject cellObject = Instantiate(_cellTemplate, new Vector3(cell.Position.X, cell.Position.Y), Quaternion.identity, transform);
 
                     if (cell is Empty)
@@ -60,7 +62,7 @@ namespace Sapper.View
         {
             ClickHandler inputHandler = cellView.gameObject.AddComponent<ClickHandler>();
             inputHandler.Init(cell);
-            _mapModel.AddInputHandler(inputHandler);
+            _map.AddInputHandler(inputHandler);
             cellView.Init(cell);
         }
     }

@@ -13,10 +13,10 @@ namespace Sapper.View
 
         private Score _score;
 
-        public void Init(Map map)
+        public void Init(Score score)
         {
             _lastBombsLabel.text = "Bombs left:";
-            _score = new Score(map);
+            _score = score;
             _score.Changed += OnScoreChanged;
         }
 
