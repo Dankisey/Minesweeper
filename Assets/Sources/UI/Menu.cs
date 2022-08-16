@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class Menu : MonoBehaviour
 {
-    [SerializeField] private CanvasGroup _menu;
+    [SerializeField] private CanvasGroup _menu;   
 
     public void TurnOn()
     {

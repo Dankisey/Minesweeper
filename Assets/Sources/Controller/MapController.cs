@@ -1,10 +1,10 @@
-using Sapper.Controller;
 using Sapper.Model;
+using Sapper.View;
 using UnityEngine;
 
-namespace Sapper.View
+namespace Sapper.Controller
 {
-    public class MapView : MonoBehaviour
+    public class MapController : MonoBehaviour
     {
         [SerializeField] private GameObject _cellTemplate;
 
@@ -21,7 +21,7 @@ namespace Sapper.View
         }
 
         public void RestartGame()
-        {       
+        {
             CreateCellsView();
         }
 

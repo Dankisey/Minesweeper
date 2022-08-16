@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RestartMenu : Menu
 {
+    [SerializeField] private float _secondsToTurnOn;
     [SerializeField] private Text _record;
     [SerializeField] private Text _time;
 
@@ -20,21 +21,19 @@ public class RestartMenu : Menu
 
     private void OnLose()
     {
-        Unsubscribe();
         _timer.Stop();
         _time.text = "Time: none";
-        TurnOn();
+        Invoke(nameof(TurnOn), _secondsToTurnOn);
     }
 
     private void OnWin()
     {
-        Unsubscribe();
         Sapper.Model.Time finalTime = _timer.Stop(); 
         _time.text = $"Time: {finalTime.GetFormatedTime()}";
-        TurnOn();
+        Invoke(nameof(TurnOn), _secondsToTurnOn);
     }
 
-    private void Unsubscribe()
+    private void OnDisable()
     {
         _gameStateObserver.Lose -= OnLose;
         _gameStateObserver.Win -= OnWin;

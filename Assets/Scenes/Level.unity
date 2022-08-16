@@ -694,6 +694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menu: {fileID: 560364286}
+  _secondsToTurnOn: 0.3
   _record: {fileID: 2043180767}
   _time: {fileID: 144493743}
 --- !u!4 &931187113 stripped
@@ -1154,7 +1155,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 958504535}
         m_TargetAssemblyTypeName: Initializer, Assembly-CSharp
-        m_MethodName: Restart
+        m_MethodName: Reset
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
