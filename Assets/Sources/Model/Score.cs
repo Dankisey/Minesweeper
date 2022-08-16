@@ -15,7 +15,12 @@ namespace Sapper.Model
 
         public event Action<int> Changed;
 
-        public void OnChanged()
+        public void Destroy()
+        {
+            _gameStateObserver.LastBombsAmountChanged -= OnChanged;
+        }
+
+        private void OnChanged()
         {
             Changed?.Invoke(_gameStateObserver.LastBombs);
         }    

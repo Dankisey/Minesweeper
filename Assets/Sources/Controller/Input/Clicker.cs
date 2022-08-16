@@ -23,6 +23,8 @@ namespace Sapper.Controller
         private void OnDisable()
         {
             _playerInput.Disable();
+            _playerInput.Player.RightClick.performed -= OnRightClick;
+            _playerInput.Player.LeftClick.performed -= OnLeftClick;
         }
 
         private void OnLeftClick(InputAction.CallbackContext context)

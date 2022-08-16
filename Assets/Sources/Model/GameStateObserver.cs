@@ -50,12 +50,21 @@ namespace Sapper.Model
 
         private void OnBombOpen()
         {
+            Unsubscribe();
             Lose?.Invoke();
         }
 
         private void DoWin()
         {
+            Unsubscribe();
             Win?.Invoke();
+        }
+
+        private void Unsubscribe()
+        {
+            _map.FlagStatusChanged -= OnFlagStatusChanged;
+            _map.CellOpened -= OnCellOpen;
+            _map.BombOpened -= OnBombOpen;
         }
     }
 }

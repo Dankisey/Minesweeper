@@ -4,12 +4,14 @@ namespace Sapper.Model
 {
     public class Timer
     {
+        private bool _isWorking;
         private float _elapsedTime;
         private int _minutes;
         private int _seconds;
 
         public Timer()
         {
+            _isWorking = true;
             _elapsedTime = 0;
             _minutes = 0;
             _seconds = 0;
@@ -19,6 +21,9 @@ namespace Sapper.Model
 
         public void AddTime(float timeToAdd)
         {
+            if (_isWorking == false)
+                return;
+
             if (timeToAdd < 0)
                 throw new ArgumentOutOfRangeException(nameof(timeToAdd));
 
@@ -28,11 +33,13 @@ namespace Sapper.Model
 
         public Time Stop()
         {
+            _isWorking = false;
             return Time;
         }
 
         public void Reset()
         {
+            _isWorking = true;
             _elapsedTime = 0;
             SetFormatedTime();
         }
@@ -53,6 +60,18 @@ namespace Sapper.Model
         {
             Minutes = minutes;
             Seconds = seconds;
+        }
+
+        public string GetFormatedTime()
+        {
+            string formatedTime;
+
+            if (Seconds < 10)
+                formatedTime = $"{Minutes}:0{Seconds}";
+            else
+                formatedTime = $"{Minutes}:{Seconds}";
+
+            return formatedTime;
         }
     }
 }

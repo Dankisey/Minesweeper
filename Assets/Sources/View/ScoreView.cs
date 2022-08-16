@@ -15,6 +15,9 @@ namespace Sapper.View
 
         public void Init(Score score)
         {
+            if (_score != null)        
+                _score.Changed -= OnScoreChanged;            
+
             _lastBombsLabel.text = "Bombs left:";
             _score = score;
             _score.Changed += OnScoreChanged;

@@ -12,7 +12,7 @@ namespace Sapper.View
 
         private void Start()
         {
-            StartGame();
+            RestartGame();
         }
 
         public void Init(Map map)
@@ -20,7 +20,7 @@ namespace Sapper.View
             _map = map;
         }
 
-        public void StartGame()
+        public void RestartGame()
         {       
             CreateCellsView();
         }

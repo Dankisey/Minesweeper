@@ -4,14 +4,14 @@ public abstract class Menu : MonoBehaviour
 {
     [SerializeField] private CanvasGroup _menu;
 
-    protected void TurnOn()
+    public void TurnOn()
     {
         _menu.alpha = 1;
         _menu.blocksRaycasts = true;
         _menu.interactable = true;
     }
 
-    protected void TurnOff()
+    public void TurnOff()
     {
         _menu.alpha = 0;
         _menu.blocksRaycasts = false;

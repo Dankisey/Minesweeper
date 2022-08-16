@@ -25,6 +25,11 @@ namespace Sapper.View
 
         public Cell CellModel { get; private set; }
 
+        public void OnFlagStatusChanged(bool isFlagged)
+        {
+            _animator.SetBool(Flagged, isFlagged);
+        }
+
         protected void ForceOpen()
         {
             _animator.SetTrigger(Reveal);
@@ -35,14 +40,15 @@ namespace Sapper.View
             _animator.SetBool(Flagged, false);
         }
 
+        private void OnDestroy()
+        {
+            CellModel.Opened -= OnOpened;
+            CellModel.FlagStatusChanged -= OnFlagStatusChanged;
+        }
+
         private void OnOpened(Cell cell)
         {
             _animator.SetTrigger(Reveal);
-        }
-
-        public void OnFlagStatusChanged(bool isFlagged)
-        {
-            _animator.SetBool(Flagged, isFlagged);
         }
     }
 }

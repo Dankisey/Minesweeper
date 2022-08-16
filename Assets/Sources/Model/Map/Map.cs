@@ -56,8 +56,11 @@ namespace Sapper.Model
 
         private void RemoveInputHandlers()
         {
-            foreach (var inputHandler in _inputHandlers)           
+            foreach (var inputHandler in _inputHandlers)
+            {
                 inputHandler.Clicked -= TryOpenCell;
+                inputHandler.FlagStatusChanged -= FlagCell;
+            }            
         }
 
         private void FlagCell(Cell cell)
