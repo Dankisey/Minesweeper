@@ -1,4 +1,3 @@
-using UnityEngine.SceneManagement;
 using Sapper.Controller;
 using Sapper.Model;
 using Sapper.View;
@@ -17,11 +16,6 @@ public class Initializer : MonoBehaviour
     private Score _score;
     private Timer _timer;
     private Map _map;
-
-    public void Reset()
-    {
-        SceneManager.LoadScene(0);
-    }
 
     private void Awake()
     {
