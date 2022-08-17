@@ -694,8 +694,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _menu: {fileID: 560364286}
+  _recordController: {fileID: 2043180770}
   _secondsToTurnOn: 0.3
-  _record: {fileID: 2043180767}
   _time: {fileID: 144493743}
 --- !u!4 &931187113 stripped
 Transform:
@@ -733,11 +733,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _timerController: {fileID: 1445559174}
-  _restartMenu: {fileID: 560364287}
-  _mapParent: {fileID: 367761805}
   _timerView: {fileID: 1445559171}
-  _scoreView: {fileID: 1761345674}
+  _restartMenu: {fileID: 560364287}
+  _bombCounterView: {fileID: 1761345674}
   _mapView: {fileID: 367761806}
+  _recordController: {fileID: 2043180770}
+  _recordView: {fileID: 2043180769}
 --- !u!4 &958504536
 Transform:
   m_ObjectHideFlags: 0
@@ -1408,7 +1409,7 @@ GameObject:
   - component: {fileID: 1761345673}
   - component: {fileID: 1761345674}
   m_Layer: 5
-  m_Name: Score
+  m_Name: BombCounter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1564,6 +1565,8 @@ GameObject:
   - component: {fileID: 2043180766}
   - component: {fileID: 2043180768}
   - component: {fileID: 2043180767}
+  - component: {fileID: 2043180770}
+  - component: {fileID: 2043180769}
   m_Layer: 5
   m_Name: Record
   m_TagString: Untagged
@@ -1633,6 +1636,32 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2043180765}
   m_CullTransparentMesh: 1
+--- !u!114 &2043180769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043180765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09e928cffe4d6be4eab6d44d2ad7ff0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _record: {fileID: 2043180767}
+--- !u!114 &2043180770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043180765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f270403e35b6dd14c91a99b0a7192d2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _recordView: {fileID: 2043180769}
 --- !u!1 &2072527690
 GameObject:
   m_ObjectHideFlags: 0

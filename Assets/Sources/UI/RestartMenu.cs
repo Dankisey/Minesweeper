@@ -1,11 +1,12 @@
+using Sapper.Controller;
 using Sapper.Model;
 using UnityEngine.UI;
 using UnityEngine;
 
 public class RestartMenu : Menu
 {
+    [SerializeField] private RecordController _recordController;
     [SerializeField] private float _secondsToTurnOn;
-    [SerializeField] private Text _record;
     [SerializeField] private Text _time;
 
     private GameStateObserver _gameStateObserver;
@@ -30,6 +31,9 @@ public class RestartMenu : Menu
     {
         Sapper.Model.Time finalTime = _timer.Stop(); 
         _time.text = $"Time: {finalTime.GetFormatedTime()}";
+
+        _recordController.TrySave(finalTime);
+
         Invoke(nameof(TurnOn), _secondsToTurnOn);
     }
 
