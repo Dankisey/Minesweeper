@@ -2,11 +2,11 @@ using System;
 
 namespace Sapper.Model
 {
-    public class Score
+    public class BombCounter
     {
         private readonly GameStateObserver _gameStateObserver;
 
-        public Score(GameStateObserver gameStateObserver)
+        public BombCounter(GameStateObserver gameStateObserver)
         {
             _gameStateObserver = gameStateObserver;
             _gameStateObserver.LastBombsAmountChanged += OnChanged;
