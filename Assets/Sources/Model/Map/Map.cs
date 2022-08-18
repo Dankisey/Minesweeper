@@ -54,7 +54,16 @@ namespace Sapper.Model
             inputHandler.FlagStatusChanged += FlagCell;
         }
 
-        private void RemoveInputHandlers()
+        public void EnableInputHandlers()
+        {
+            foreach (var inputHandler in _inputHandlers)
+            {
+                inputHandler.Clicked += TryOpenCell;
+                inputHandler.FlagStatusChanged += FlagCell;
+            }
+        }
+
+        public void DisableInputHandlers()
         {
             foreach (var inputHandler in _inputHandlers)
             {
@@ -127,7 +136,7 @@ namespace Sapper.Model
                 _bombsData.Bombs[position].ForceExplosion();
             }
 
-            RemoveInputHandlers();
+            DisableInputHandlers();
         }            
     }
 

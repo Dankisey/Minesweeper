@@ -6,7 +6,7 @@ using UnityEngine;
 public class RestartMenu : Menu
 {
     [SerializeField] private RecordController _recordController;
-    [SerializeField] private float _secondsToTurnOn;
+    [SerializeField] private float _secondsToEnable;
     [SerializeField] private Text _time;
 
     private GameStateObserver _gameStateObserver;
@@ -24,7 +24,7 @@ public class RestartMenu : Menu
     {
         _timer.Stop();
         _time.text = "Time: none";
-        Invoke(nameof(TurnOn), _secondsToTurnOn);
+        Invoke(nameof(TurnOn), _secondsToEnable);
     }
 
     private void OnWin()
@@ -34,7 +34,7 @@ public class RestartMenu : Menu
 
         _recordController.TrySave(finalTime);
 
-        Invoke(nameof(TurnOn), _secondsToTurnOn);
+        Invoke(nameof(TurnOn), _secondsToEnable);
     }
 
     private void OnDisable()
