@@ -13,6 +13,7 @@ public class Initializer : MonoBehaviour
     [SerializeField] private MapController _mapController;
     [SerializeField] private RecordController _recordController;
     [SerializeField] private RecordView _recordView;
+    [SerializeField] private SoundPlayer _soundPlayer;
 
     private GameStateObserver _gameStateObserver;
     private BombCounter _bombCounter;
@@ -22,7 +23,7 @@ public class Initializer : MonoBehaviour
     private void Awake()
     {
         _map = new Map().Generate();
-        _gameStateObserver = new(_map);
+        _gameStateObserver = new(_map, _soundPlayer);
         _bombCounter = new(_gameStateObserver);
         _timer = new();
         _mapViewFabric.Init(_map);

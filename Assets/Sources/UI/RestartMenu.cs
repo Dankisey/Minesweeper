@@ -7,6 +7,7 @@ public class RestartMenu : Menu
 {
     [SerializeField] private RecordController _recordController;
     [SerializeField] private float _secondsToEnable;
+    [SerializeField] private Button _pauseButton;
     [SerializeField] private Text _time;
 
     private GameStateObserver _gameStateObserver;
@@ -18,6 +19,18 @@ public class RestartMenu : Menu
         _gameStateObserver.Lose += OnLose;
         _gameStateObserver.Win += OnWin;
         _timer = timer;
+    }
+
+    public override void TurnOn()
+    {
+        base.TurnOn();
+        _pauseButton.interactable = false;
+    }
+
+    public override void TurnOff()
+    {
+        base.TurnOff();
+        _pauseButton.interactable = true;
     }
 
     private void OnLose()
