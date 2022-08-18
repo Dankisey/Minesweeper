@@ -74,6 +74,9 @@ namespace Sapper.Model
 
         private void FlagCell(Cell cell)
         {
+            if (cell.IsOpened)            
+                return;
+            
             FlagStatusChanged?.Invoke(cell.ChangeFlagStatus());
         }
 

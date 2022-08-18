@@ -4,15 +4,15 @@ namespace Sapper.Model
 {
     public abstract class Cell
     {
-        private bool _isOpenned;
         private bool _isFlagged;
-
+        
         public Cell(Vector2Int position)
         {
             Position = position;
             _isFlagged = false;
-            _isOpenned = false;
+            IsOpened = false;
         }
+        public bool IsOpened { get; private set; }
 
         public event Action<bool> FlagStatusChanged;
         public event Action<Cell> Opened;
@@ -23,7 +23,7 @@ namespace Sapper.Model
         {
             isSuccess = !_isFlagged;
 
-            if(_isOpenned)
+            if(IsOpened)
             {
                 isSuccess = false;
                 return this;
@@ -37,7 +37,7 @@ namespace Sapper.Model
 
         public bool ChangeFlagStatus()
         {
-            if (_isOpenned)
+            if (IsOpened)
                 return false;
 
             _isFlagged = !_isFlagged;
@@ -48,11 +48,11 @@ namespace Sapper.Model
 
         protected virtual Cell Open()
         {
-            if (_isOpenned == true)
+            if (IsOpened == true)
                 return this;
 
             Opened?.Invoke(this);
-            _isOpenned = true;
+            IsOpened = true;
             return this;
         }
 
