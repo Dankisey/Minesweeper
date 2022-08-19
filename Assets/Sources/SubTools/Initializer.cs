@@ -22,10 +22,21 @@ public class Initializer : MonoBehaviour
 
     private void Awake()
     {
+        CreateModels();
+        InitViews();
+    }
+
+    private void CreateModels()
+    {
         _map = new Map().Generate();
-        _gameStateObserver = new(_map, _soundPlayer);
+        _gameStateObserver = new(_map);
         _bombCounter = new(_gameStateObserver);
         _timer = new();
+    }
+
+    private void InitViews()
+    {
+        _soundPlayer.Init(_gameStateObserver);
         _mapViewFabric.Init(_map);
         _mapController.Init(_map);
         _recordView.Init(_recordController);
@@ -33,6 +44,6 @@ public class Initializer : MonoBehaviour
         _restartMenu.Init(_gameStateObserver, _timer);
         _bombCounterView.Init(_bombCounter);
         _timerController.Init(_timerView, _timer);
-        _timerView.Init(_timer);      
+        _timerView.Init(_timer);
     }
 }
